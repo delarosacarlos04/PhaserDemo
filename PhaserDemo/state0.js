@@ -31,7 +31,7 @@ demo.state0.prototype = {
 		else if(game.input.keyboard.isDown(Phaser.Keyboard.DOWN)){
 			carlos.x += 4;
 		}
-	}
+	}	
 };
 
 
