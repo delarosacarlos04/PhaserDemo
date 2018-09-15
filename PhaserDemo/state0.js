@@ -5,28 +5,46 @@ demo.state0 = function(){};
 demo.state0.prototype = {
 	preload: function(){
 		game.load.image('carlos','assets/sprites/carlos')
+		game.load.image('jungle','assets/backgrounds/jungle')
 
 	},
 	create: function(){
+		game.physics.startSystem(Phaser.Physics.ARCADE)
 		game.stage.backgroundColor = '#26b7ad';
 		console.log('state0')
 		addChangeStateEventListeners();
+		game.world.setBounds(0, 0, 2813, 1000);
 		game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+
+		var jungle = game.add.sprite(0, 0,'jungle');
 
 		carlos = game.add.sprite(centerX, centerY, 'carlos');
 		carlos.anchor.setTo(0.5, 0.5);
+		carlos.scale.setTo(0.9, 0.9);
+		game.physics.enable(carlos);
+		carlos.body.collideWorldBounds = true;
 
+
+		game.camera.follow(carlos);
+		game.camera.deadzone = new Phaser.Rectangle(centerX - 300, 0, 600, 1000);
 	},
+
+
 	update: function(){
 		if(game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)){
+			carlos.scale.setTo(0.9, 0.9);
 			carlos.x += 4;
 		}
 		else if(game.input.keyboard.isDown(Phaser.Keyboard.LEFT)){
+			carlos.scale.setTo(-0.9, 0.9);
 			carlos.x -= 4;
 		}
 
 		if(game.input.keyboard.isDown(Phaser.Keyboard.UP)){
 			carlos.x -= 4;
+			if(carlos.y < 395){
+				carlos.y = 395;
+			}
 		}
 		else if(game.input.keyboard.isDown(Phaser.Keyboard.DOWN)){
 			carlos.x += 4;
